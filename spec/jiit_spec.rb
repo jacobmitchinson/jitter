@@ -4,7 +4,7 @@ describe Jiit do
 
   context 'check the database is working' do 
 
-    it 'should be create a jiit and then retrieve it from the database' do 
+    it 'should create a jiit and then retrieve it from the database' do 
 
       expect(Jiit.count).to eq(0)
       Jiit.create(text: 'Hello World!')

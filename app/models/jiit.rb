@@ -7,5 +7,6 @@ class Jiit
 
   property :id, Serial
   property :text, Text
+  property :time, DateTime
 
 end

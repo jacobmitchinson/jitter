@@ -1,0 +1,5 @@
+<ul>
+	<% @jiits.each do |jiit|  %>
+	<li><%= "#{jiit.text}, #{jiit.time.hour}:#{jiit.time.minute} (#{jiit.time.day}, #{jiit.time.month}, #{jiit.time.year})" %></li>
+	<% end %>
+</ul>
