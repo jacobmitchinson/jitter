@@ -1,0 +1,11 @@
+<body>
+
+	<% if current_user %>
+		Welcome to Jitter, <%= current_user.name %>!
+	<% end %>
+
+	<%= yield %>
+
+
+
+</body>
