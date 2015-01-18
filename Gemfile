@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt'
+gem 'rack-flash3'
 gem 'data_mapper'
 gem 'database_cleaner'
 gem 'dm-postgres-adapter'
