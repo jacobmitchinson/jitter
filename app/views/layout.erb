@@ -4,6 +4,10 @@
 		Welcome to Jitter, <%= current_user.name %>!
 	<% end %>
 
+	<% if flash[:notice] %>
+	  <div id="notice"><%= flash[:notice] %></div>
+	 <% end %>
+
 	<%= yield %>
 
 
