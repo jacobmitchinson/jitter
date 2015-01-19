@@ -1,4 +1,7 @@
 require 'spec_helper'
+require 'helpers/session'
+
+include SessionHelpers
 
 feature 'In order to use jitter as a maker' do 
 
@@ -21,28 +24,13 @@ feature 'In order to use jitter as a maker' do
     expect(page).to have_content("This email is already taken")
   end
 
-
-
-  def sign_up(email = "jake@test.com",
-              password = "blue",
-              password_confirmation = "blue",
-              name = "Jake")
-    visit "/users/new"
-    expect(page.status_code).to eq(200)
-    fill_in :name, with: name
-    fill_in :email, with: email
-    fill_in :password, with: password
-    fill_in :password_confirmation, with: password_confirmation
-    click_button "Sign up"
-  end
-
 end
 
-feature 'In order to use chitter as a Maker I want to login' do
+feature 'In order to use Jitter as a Maker I want to login' do
 
 
   before(:each) do 
-    User.create(name: "jake",
+    User.create(name: "Jake",
                 email: "jake@test.com",
                 password: "jake",
                 password_confirmation: "jake")
@@ -51,17 +39,33 @@ feature 'In order to use chitter as a Maker I want to login' do
   scenario 'with correct credentials' do 
     visit '/'
     expect(page).not_to have_content('Welcome to Jitter, Jake!')
-    sign_in('test@test.com', 'test')
+    sign_in('jake@test.com', 'jake')
     expect(page).to have_content("Welcome to Jitter, Jake!")
   end
 
-  def sign_in(email, password)
-    visit '/sessions/new'
-    fill_in 'email', :with => email
-    fill_in 'password', :with => password
-    click_button 'Sign in'
+  scenario "with incorrect credentials" do
+    visit '/'
+    expect(page).not_to have_content("Welcome, test@test.com")
+    sign_in('test@test.com', 'wrong')
+    expect(page).not_to have_content("Welcome to Jitter,")
   end
 
+end
 
+feature 'User signs out' do
+
+  before(:each) do
+    User.create(:name => "test",
+                :email => "test@test.com",
+                :password => 'test',
+                :password_confirmation => 'test')
+  end
+
+  scenario 'while being signed in' do
+    sign_in('test@test.com', 'test')
+    click_button "Sign out"
+    expect(page).to have_content("Goodbye!")
+    expect(page).not_to have_content("Welcome to Jitter, test.")
+  end
 
 end
