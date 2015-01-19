@@ -9,4 +9,6 @@ class Jiit
   property :text, Text
   property :time, DateTime
 
+  belongs_to :user
+
 end
