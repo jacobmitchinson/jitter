@@ -9,10 +9,16 @@ feature 'In order to use jitter as a maker' do
     expect(User.first.name).to eq("Jake")
   end
 
-  scenario "I need to know when I sign up with incorrect details" do 
+  scenario "I need to know when I sign up with an incorrect password" do 
     expect{ sign_up('aa@.com', 'wrong', 'right', 'jake') }.to change(User, :count).by(0)
     expect(current_path).to eq('/users')
     expect(page).to have_content('Sorry, your passwords don\'t match.')
+  end
+
+  scenario "I need to know when I sign up with an email that is already registered" do
+    expect{ sign_up }.to change(User, :count).by(1)
+    expect{ sign_up }.to change(User, :count).by(0)
+    expect(page).to have_content("This email is already taken")
   end
 
   def sign_up(email = "jake@test.com",

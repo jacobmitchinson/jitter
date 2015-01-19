@@ -13,8 +13,9 @@ class User
   property :name, String
   property :email, String
   property :password_digest, Text
+  property :email, String, :unique => true, :message => "This email is already taken"
 
-  validates_confirmation_of :password
+  validates_confirmation_of :password, :message => "Sorry, your passwords don't match."
 
   def password=(password)
     @password = password
