@@ -32,3 +32,7 @@ post '/users' do
     erb :'/users/new'
   end
 end
+
+get '/sessions/new' do 
+  erb :'session/new'
+end
